@@ -14,10 +14,10 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendCreateAccountEmail = async (user: User, password: string): Promise<void> => {
-	let html = fs.readFileSync("assets/emails/new-account.html", "utf8");
+	let html = fs.readFileSync("src/assets/emails/new-account.html", "utf8");
 	html = parseContent(html, { password, email: user.email, name: user.name });
 
-	let text = fs.readFileSync("assets/emails/new-account.txt", "utf8");
+	let text = fs.readFileSync("src/assets/emails/new-account.txt", "utf8");
 	text = parseContent(text, { password, email: user.email, name: user.name });
 
 
@@ -39,10 +39,10 @@ const sendCreateAccountEmail = async (user: User, password: string): Promise<voi
 };
 
 const sendRecoverPasswordEmail = async (user: User, password: string): Promise<void> => {
-	let html = fs.readFileSync("assets/emails/recover-password.html", "utf8");
+	let html = fs.readFileSync("src/assets/emails/recover-password.html", "utf8");
 	html = parseContent(html, { password, email: user.email, name: user.name });
 
-	let text = fs.readFileSync("assets/emails/recover-password.txt", "utf8");
+	let text = fs.readFileSync("src/assets/emails/recover-password.txt", "utf8");
 	text = parseContent(text, { password, email: user.email, name: user.name });
 
 	const mailOptions = {

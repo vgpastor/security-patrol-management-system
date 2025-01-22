@@ -6,6 +6,7 @@ module.exports = {
       type: Sequelize.DATE,
       allowNull: true,
       after: 'organizationId'
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
