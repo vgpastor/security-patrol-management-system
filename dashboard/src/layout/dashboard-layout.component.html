@@ -22,6 +22,14 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>{{organizationName}}</span>
+      <span class="spacer-small"></span>
+      <mat-form-field appearance="outline" class="location-select">
+        <mat-select [value]="selectedLocation" (selectionChange)="onLocationChange($event.value)" placeholder="Seleccionar ubicación">
+          <mat-option *ngFor="let location of locations" [value]="location">
+            {{location.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <span class="spacer"></span>
       <button mat-icon-button [matMenuTriggerFor]="notificationMenu" aria-label="Notificaciones">
 <!--        <mat-icon matBadge="3" matBadgeColor="warn">notifications</mat-icon>-->

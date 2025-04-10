@@ -1,0 +1,38 @@
+name: Deploy Dashboard
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'dashboard/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          
+      - name: Install and build Dashboard
+        working-directory: dashboard
+        run: |
+          npm install
+          npm run build -- --configuration production
+          
+      - name: Deploy to Server
+        uses: easingthemes/ssh-deploy@v4.1.10
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ vars.SERVER_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USER }}
+          TARGET: "/var/www/vhosts/patroltech.online/dashboard.patroltech.online"
+          SOURCE: "dashboard/dist/browser/"
+          ARGS: "-rlDz --delete"
